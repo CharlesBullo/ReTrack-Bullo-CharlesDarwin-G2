@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Admin dashboard · ReTrack{% endblock %}
+{% block content %}
+<h1>Admin dashboard</h1>
+<p class="lede">Signed in as {{ user.get_full_name|default:user.username }}.</p>
+<div class="stats">
+  <div class="stat"><b>{{ member_count }}</b><span>Members</span></div>
+  <div class="stat"><b>{{ new_this_month }}</b><span>New in 30 days</span></div>
+  <div class="stat"><b>{{ admin_count }}</b><span>Admins</span></div>
+</div>
+<h2>Newest members</h2>
+{% if recent_members %}
+<ul class="rows">
+  {% for m in recent_members %}
+  <li>{{ m.get_full_name|default:m.username }} <span class="meta">&middot; {{ m.profile.get_user_type_display }} &middot; {{ m.email }} &middot; {{ m.date_joined|date:"M j, Y" }}</span></li>
+  {% endfor %}
+</ul>
+{% else %}<div class="empty">No members yet. New registrations will appear here.</div>{% endif %}
+{% endblock %}

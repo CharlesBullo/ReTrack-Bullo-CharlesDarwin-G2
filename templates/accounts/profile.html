@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Profile · ReTrack{% endblock %}
+{% block content %}
+<div class="panel">
+  <div class="me">
+    {% if profile.photo %}<img class="avatar" src="{{ profile.photo.url }}" alt="Your profile photo">{% else %}<div class="avatar" aria-hidden="true">{{ profile.initial }}</div>{% endif %}
+    <div>
+      <h1 style="margin:0">{{ profile.display_name }}</h1>
+      <span class="chip cat">{{ profile.get_role_display }}</span>
+      <span class="chip cat">{{ profile.get_user_type_display }}</span>
+    </div>
+  </div>
+  <dl class="facts">
+    <dt>Username</dt><dd>{{ user.username }}</dd>
+    <dt>Email</dt><dd>{{ user.email }}</dd>
+    <dt>School / staff ID</dt><dd>{{ profile.school_id|default:"Not added yet" }}</dd>
+    <dt>Contact number</dt><dd>{{ profile.phone|default:"Not added yet" }}</dd>
+    <dt>Joined</dt><dd>{{ user.date_joined|date:"F j, Y" }}</dd>
+  </dl>
+  <div class="actions">
+    <a class="btn" href="{% url 'accounts:profile_edit' %}">Edit profile</a>
+    <form method="post" action="{% url 'accounts:logout' %}">{% csrf_token %}<button class="btn btn-quiet" type="submit">Log out</button></form>
+  </div>
+</div>
+{% endblock %}

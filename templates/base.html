@@ -1,0 +1,36 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2b3a8f">
+  <title>{% block title %}ReTrack{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<header class="top">
+  <div class="top-row">
+    <a class="brand" href="{% url 'accounts:home' %}">ReTrack</a>
+    {% if user.is_authenticated %}
+      <nav class="tabs" aria-label="Main">
+        {% if user.profile.role == 'admin' %}
+          <a href="{% url 'accounts:admin_dashboard' %}" class="{% if request.resolver_match.url_name == 'admin_dashboard' %}on{% endif %}">Dashboard</a>
+        {% else %}
+          <a href="{% url 'accounts:member_dashboard' %}" class="{% if request.resolver_match.url_name == 'member_dashboard' %}on{% endif %}">Dashboard</a>
+        {% endif %}
+        <a href="{% url 'accounts:profile' %}" class="{% if 'profile' in request.resolver_match.url_name %}on{% endif %}">Profile</a>
+      </nav>
+      <form method="post" action="{% url 'accounts:logout' %}">{% csrf_token %}<button class="linklike" type="submit">Log out</button></form>
+    {% else %}
+      <a href="{% url 'accounts:login' %}">Log in</a>
+      <a href="{% url 'accounts:register' %}">Sign up</a>
+    {% endif %}
+  </div>
+</header>
+{% if messages %}<div class="msgs" role="status">{% for message in messages %}<div class="msg msg-{{ message.tags }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+<main>{% block content %}{% endblock %}</main>
+</body>
+</html>
