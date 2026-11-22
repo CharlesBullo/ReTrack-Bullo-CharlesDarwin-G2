@@ -20,4 +20,8 @@
   </dl>
   <a class="btn" href="{% url 'accounts:profile_edit' %}">Edit profile</a>
 </div>
+<div class="panel">
+  <a class="btn" href="{% url 'items:create' 'lost' %}">I lost something</a>
+  <a class="btn" href="{% url 'items:create' 'found' %}">I found something</a>
+</div>
 {% endblock %}

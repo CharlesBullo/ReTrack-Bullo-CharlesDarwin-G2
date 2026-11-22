@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Report {{ kind }} item · ReTrack{% endblock %}
+{% block content %}
+<h1>Report a {{ kind }} item</h1>
+<form method="post" enctype="multipart/form-data" class="panel" novalidate>
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button class="btn" type="submit">Post report</button>
+</form>
+{% endblock %}

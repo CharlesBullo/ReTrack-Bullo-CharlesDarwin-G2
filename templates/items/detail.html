@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ item.title }} · ReTrack{% endblock %}
+{% block content %}
+<h1>{{ item.title }}</h1>
+<span class="chip cat">{{ item.get_kind_display }}</span>
+<span class="chip cat">{{ item.get_status_display }}</span>
+{% if item.photo %}<img src="{{ item.photo.url }}" alt="Photo of {{ item.title }}" style="max-width:320px">{% endif %}
+<dl class="facts">
+  <dt>Category</dt><dd>{{ item.category }}</dd>
+  <dt>Where</dt><dd>{{ item.location }}</dd>
+  <dt>When</dt><dd>{{ item.event_date|date:"m/d/Y" }}</dd>
+  <dt>Details</dt><dd>{{ item.description|default:"None" }}</dd>
+  <dt>Reported by</dt><dd>{{ item.reporter.get_full_name|default:item.reporter.username }}</dd>
+</dl>
+{% endblock %}
