@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "accounts.apps.AccountsConfig",
+    "items",
 ]
 
 MIDDLEWARE = [
@@ -60,6 +61,7 @@ DATABASES = {
         "HOST": os.environ.get("DB_HOST", "localhost"),
         "PORT": os.environ.get("DB_PORT", "5432"),
         "OPTIONS": {"sslmode": os.environ.get("DB_SSLMODE", "prefer")},
+        "DISABLE_SERVER_SIDE_CURSORS": True,
     }
 }
 
